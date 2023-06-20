@@ -1,0 +1,19 @@
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    
+    return quicksort(left) + middle + quicksort(right)
+
+# Contoh penggunaan
+data = [5, 3, 8, 2, 1, 7]
+
+print("Sebelum diurutkan:", data)
+
+sorted_data = quicksort(data)
+
+print("Setelah diurutkan:", sorted_data)
