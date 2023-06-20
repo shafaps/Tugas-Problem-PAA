@@ -1,0 +1,56 @@
+class BinaryHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def parent(self, i):
+        return (i - 1) // 2
+    
+    def insert(self, item):
+        self.heap.append(item)
+        self.heapify_up(len(self.heap) - 1)
+    
+    def heapify_up(self, i):
+        while i > 0 and self.heap[i] > self.heap[self.parent(i)]:
+            self.heap[i], self.heap[self.parent(i)] = self.heap[self.parent(i)], self.heap[i]
+            i = self.parent(i)
+    
+    def extract_max(self):
+        if len(self.heap) == 0:
+            return None
+        
+        max_value = self.heap[0]
+        self.heap[0] = self.heap[-1]
+        self.heap.pop()
+        self.heapify_down(0)
+        
+        return max_value
+    
+    def heapify_down(self, i):
+        n = len(self.heap)
+        left_child = 2 * i + 1
+        right_child = 2 * i + 2
+        largest = i
+        
+        if left_child < n and self.heap[left_child] > self.heap[largest]:
+            largest = left_child
+        
+        if right_child < n and self.heap[right_child] > self.heap[largest]:
+            largest = right_child
+        
+        if largest != i:
+            self.heap[i], self.heap[largest] = self.heap[largest], self.heap[i]
+            self.heapify_down(largest)
+
+# Contoh penggunaan
+peralatan_david = BinaryHeap()
+
+peralatan_david.insert(("Tenda", 10))
+peralatan_david.insert(("Sleeping Bag", 8))
+peralatan_david.insert(("Jaket Tebal", 5))
+peralatan_david.insert(("Kompor Gas", 12))
+peralatan_david.insert(("Air Minum", 3))
+
+print("Peralatan dalam urutan berat:")
+while len(peralatan_david.heap) > 0:
+    peralatan = peralatan_david.extract_max()
+    print("Peralatan:", peralatan[0], "- Berat:", peralatan[1])
