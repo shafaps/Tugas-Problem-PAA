@@ -1,0 +1,34 @@
+class Node:
+    def __init__(self, judul):
+        self.judul = judul
+        self.left = None
+        self.right = None
+
+def insert(root, judul):
+    if root is None:
+        return Node(judul)
+    else:
+        if judul < root.judul:
+            root.left = insert(root.left, judul)
+        else:
+            root.right = insert(root.right, judul)
+    return root
+
+def in_order_traversal(root):
+    if root:
+        in_order_traversal(root.left)
+        print(root.judul)
+        in_order_traversal(root.right)
+
+# Contoh penggunaan
+buku_pertama = Node("Buku A")
+root = buku_pertama
+
+root = insert(root, "Buku C")
+root = insert(root, "Buku B")
+root = insert(root, "Buku F")
+root = insert(root, "Buku D")
+root = insert(root, "Buku E")
+
+print("Buku dalam urutan:")
+in_order_traversal(root)
