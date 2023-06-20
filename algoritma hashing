@@ -1,0 +1,46 @@
+class Customer:
+    def __init__(self, name, address, phone):
+        self.name = name
+        self.address = address
+        self.phone = phone
+
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = [None] * size
+
+    def hash_function(self, key):
+        return len(key) % self.size
+
+    def insert(self, customer):
+        index = self.hash_function(customer.name)
+        self.table[index] = customer
+
+    def search(self, key):
+        index = self.hash_function(key)
+        if self.table[index] is not None and self.table[index].name == key:
+            return self.table[index]
+        return None
+
+# Contoh penggunaan
+customer_table = HashTable(10)
+
+customer1 = Customer("John", "123 Main Street", "555-1234")
+customer2 = Customer("Emily", "456 Park Avenue", "555-5678")
+customer3 = Customer("Michael", "789 Elm Road", "555-9012")
+
+customer_table.insert(customer1)
+customer_table.insert(customer2)
+customer_table.insert(customer3)
+
+# Mencari informasi pelanggan dengan nama "Emily"
+search_key = "Emily"
+result = customer_table.search(search_key)
+
+if result is not None:
+    print("Informasi Pelanggan:")
+    print("Nama:", result.name)
+    print("Alamat:", result.address)
+    print("Nomor Telepon:", result.phone)
+else:
+    print("Pelanggan dengan nama", search_key, "tidak ditemukan.")
